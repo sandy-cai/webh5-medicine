@@ -5,13 +5,23 @@ import { lazyload } from '@/utils/common'
 Vue.use(Router)
 
 
-const commonRoutes = [
+const commonRoutes = [{
+        path: '/login',
+        name: 'login',
+        meta: {
+            title: '登录',
+            keepAlive: false
+        },
+        component: lazyload('login')
+    },
     {
-        path: '//',
-        name: '',
-        meta: { title: '', keepAlive: false },
-        alias: '/',
-        component: lazyload('')
+        path: '/apply',
+        name: 'apply',
+        meta: {
+            title: '申请',
+            keepAlive: false
+        },
+        component: lazyload('apply')
     },
 ]
 

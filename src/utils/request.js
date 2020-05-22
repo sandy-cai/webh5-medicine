@@ -54,7 +54,7 @@ const postFile = {...postBase,
 const postResArraybuffer = {...postBase,
     // 请求头信息
     headers: {
-        'Content-Type': 'application/json;charset=GB2312'
+        'Content-Type': 'application/json;charset=UTF-8'
     },
     // 返回数据类型
     responseType: 'arraybuffer'
@@ -120,38 +120,65 @@ export const post = (option, v) => {
     }
     let method = option.method ? option.method : 'post'
     return new Promise((resolve, reject) => {
-        const noData = (method === 'get' || method === 'delete')
-        axios[method](url, (noData ? postType : param), (noData ? '' : postType)).then((response) => {
-            if (isLoading) {
-                widget.hideLoading();
-            }
-            if (response.status === 200) {
-                if (!option.responseType) {
-                    //Array.isArray(response.data) && 
-                    if (response.data.Success || response.data.suc || response.data.R == 0 || response.data.ret_code == 0 || response.data.return_code == 0 || (response.data.length > 0)) {
-                        resolve(response.data)
-                    } else {
-                        if (isLoading) {
-                            widget.hideLoading();
-                            widget.toast(response.data.Message || (response.data.mes || response.data.ret_info || response.data.I || '系统异常，请稍后再试'))
-                        }
-                        reject(response.data)
-                    }
-                }
-            } else {
+        if (method == "get") {
+            axios[method](url, postType).then((response) => {
                 if (isLoading) {
-                    widget.toast('系统异常，请稍后再试')
+                    widget.hideLoading();
                 }
-                reject(response)
-            }
-        }).catch((error) => {
-            if (isLoading) {
-                widget.hideLoading();
-                widget.toast('系统异常，请稍后再试', 'cancel')
-            }
-            reject(error || {})
-        })
-
+                if (response.status === 200) {
+                    if (!option.responseType) {
+                        if (response.data.Success || response.data.suc) {
+                            resolve(response.data)
+                        } else {
+                            if (isLoading) {
+                                widget.toast(response.data.Message || (response.data.mes || '系统繁忙，请稍后重试'))
+                            }
+                            reject(response.data)
+                        }
+                    }
+                } else {
+                    if (isLoading) {
+                        widget.toast('系统繁忙，请稍后重试')
+                    }
+                    reject(response)
+                }
+            }).catch((error) => {
+                if (isLoading) {
+                    widget.hideLoading();
+                    widget.toast('系统繁忙，请稍后重试', 'cancel')
+                }
+                reject(error || {})
+            })
+        } else {
+            axios[method](url, param, postType).then((response) => {
+                if (isLoading) {
+                    widget.hideLoading();
+                }
+                if (response.status === 200) {
+                    if (!option.responseType) {
+                        if (response.data.Success || response.data.suc) {
+                            resolve(response.data)
+                        } else {
+                            if (isLoading) {
+                                widget.toast(response.data.Message || (response.data.mes || '系统繁忙，请稍后重试'))
+                            }
+                            reject(response.data)
+                        }
+                    }
+                } else {
+                    if (isLoading) {
+                        widget.toast('系统繁忙，请稍后重试')
+                    }
+                    reject(response)
+                }
+            }).catch((error) => {
+                if (isLoading) {
+                    widget.hideLoading();
+                    widget.toast('系统繁忙，请稍后重试', 'cancel')
+                }
+                reject(error || {})
+            })
+        }
     })
 }
 
