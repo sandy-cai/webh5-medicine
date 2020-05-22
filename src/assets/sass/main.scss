@@ -1,0 +1,197 @@
+// 初始化
+* {
+    // box-sizing: border-box;
+    // transition: width 2s;
+    // -moz-transition: width 2s;
+    // -webkit-transition: width 2s;
+    // -o-transition: width 2s;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    @extend .font-size4;
+    font-family: -apple-system-font, Helvetica Neue, sans-serif!important;
+    background-color: #f6f6f6;
+    height: 100%;
+}
+
+input,
+{
+    outline: none;
+}
+
+button {
+    border: none;
+    background: none;
+    outline: none;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+i {
+    display: inline-block;
+    font-style: normal;
+}
+
+a,
+a:hover,
+a:active,
+a:visited,
+a:link,
+a:focus {
+    background: none;
+}
+
+// 图标
+.icon-loading {
+    margin-left: 5px;
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    border: 3px solid #999;
+    border-bottom-color: transparent;
+    vertical-align: middle;
+    -webkit-animation: rotate 0.75s linear infinite;
+    animation: rotate 0.75s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+//kk新增
+.arrow-right {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px
+}
+
+.van-icon {
+    font-family: vant-icon !important;
+}
+
+.border-top-slim {
+    border-top: 1px solid $color-border;
+}
+
+// 邮寄、自取标签
+@mixin delivery-tag($color) {
+    display: inline-block;
+    padding: 0 4px;
+    border-radius: 2px;
+    border: 1px solid $color;
+    line-height: 17px;
+    font-size: 12px;
+    color: $color;
+}
+
+.delivery-tag-express {
+    @include delivery-tag(#32AE57);
+}
+
+.delivery-tag-byself {
+    @include delivery-tag(#1C97FC);
+}
+
+.min-height100 {
+    min-height: 667px;
+}
+
+.min-height100_has_bottom_60 {
+    min-height: 607px;
+}
+
+input::-webkit-input-placeholder {
+    color: #cdcdcd
+}
+
+img {
+    content: normal !important;
+}
+
+// 关键词
+@mixin keyword-tag($color, $bordercolor) {
+    display: inline-block;
+    padding: 4px 14px;
+    color: $color;
+    border-radius: 100px;
+    border: 1px solid $bordercolor;
+}
+
+.keywords {
+    @include keyword-tag(#16953C, rgba(50, 174, 87, 0.60));
+}
+
+.keywords-uncheck {
+    @include keyword-tag(#333333, #DDDDDD);
+}
+
+body * {
+    max-height: 999999px;
+}
+
+.oma-footer {
+    position: fixed;
+    left: 100px;
+    right: 0;
+    bottom: 0;
+    height: 76px;
+    align-items: center;
+    -webkit-align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    z-index: 999;
+}
+
+.oma-source {
+    width: 43px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    display: inline-block;
+    color: #2F7DCD;
+    border: 1px solid #2F7DCD;
+    border-radius: 2px;
+    margin-right: 0;
+    padding: 2px 4px;
+}
+
+.oma-source-used {
+    width: 45px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 0;
+    color: #FFFFFF;
+    background: #A6C5E5;
+    border-radius: 2px;
+    padding: 2px 4px;
+}
+
+.operation-img {
+    width: 22px
+}
+
+.btn-theme {
+    background-image: linear-gradient(-90deg, #2377EF 0%, #11D0F3 100%);
+    border-radius: 4px;
+    color: #fff
+}

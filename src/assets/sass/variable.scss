@@ -1,0 +1,33 @@
+// 本项目色值
+$color-theme:#32ae57;
+$color-theme1: #9B9B9B;
+$color-theme2: #4F77AA;
+$color-theme3: #b3b3b3;
+$color-theme4: #455C6E;
+$color-theme5: #f5f5f5;;
+$color-orange: #FF7B35;
+$color-gray: #CDCDCD;
+$color-blue-light:#EFFAF3;
+$color-orange-light: #FFefe5;
+$colors: (theme, $color-theme),
+(theme1, $color-theme1),
+(theme2, $color-theme2),
+(theme3, $color-theme3),
+(theme4, $color-theme4),
+(theme5, $color-theme5),
+(orange, $color-orange),
+(gray, $color-gray),
+(ddd, #ddd),
+(blue-light, $color-blue-light),
+(orange-light, $color-orange-light),
+(f6, #f6f6f6),
+(f3, #f3f3f3);
+@each $name,
+$color in $colors {
+    .color-#{$name} {
+        color: $color;
+    }
+    .bgcolor-#{$name} {
+        background-color: $color;
+    }
+}

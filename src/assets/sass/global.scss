@@ -1,0 +1,510 @@
+/*! variable */
+
+$unit: px;
+$multiplier: 0.5;
+$font-size0: 28;
+$step: 2;
+$color-border: #e5e5e5;
+$dirlist: top,
+bottom,
+left,
+right;
+
+/*! color */
+
+$colors: (transparent, transparent),
+(white, white),
+(black, black),
+(blue, blue),
+(333, #333),
+(666, #666),
+(999, #999);
+@each $name,
+$color in $colors {
+    .color-#{$name} {
+        color: $color;
+    }
+    .bgcolor-#{$name} {
+        background-color: $color;
+    }
+}
+
+
+/*! font-size */
+
+.font-size-inherit {
+    font-size: inherit;
+}
+
+@for $i from -10 through 30 {
+    .font-size#{$i} {
+        font-size: (($font-size0 + $i) * $multiplier)#{$unit};
+    }
+}
+
+
+/*! margin padding */
+
+.marginXauto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+$i: 100;
+@while $i>-1 {
+    .margin#{$i}X {
+        margin-top: ($i * $multiplier)#{$unit};
+        margin-bottom: ($i * $multiplier)#{$unit};
+    }
+    .marginX#{$i} {
+        margin-left: ($i * $multiplier)#{$unit};
+        margin-right: ($i * $multiplier)#{$unit};
+    }
+    .padding#{$i}X {
+        padding-top: ($i * $multiplier)#{$unit};
+        padding-bottom: ($i * $multiplier)#{$unit};
+    }
+    .paddingX#{$i} {
+        padding-left: ($i * $multiplier)#{$unit};
+        padding-right: ($i * $multiplier)#{$unit};
+    }
+    $i: $i - $step;
+}
+
+$i: 100;
+@while $i>-1 {
+    @each $dir in $dirlist {
+        .margin-#{$dir}#{$i} {
+            margin-#{$dir}: ($i * $multiplier)#{$unit};
+        }
+        .padding-#{$dir}#{$i} {
+            padding-#{$dir}: ($i * $multiplier)#{$unit};
+        }
+    }
+    $i: $i - $step;
+}
+
+
+/*! border */
+
+.border-none {
+    border: none;
+}
+
+.border1 {
+    border: 1#{$unit} solid $color-border;
+}
+
+.border1-transparent {
+    border: 1#{$unit} solid transparent;
+}
+
+@each $dir in $dirlist {
+    .border-#{$dir}1 {
+        border-#{$dir}: 1#{$unit} solid $color-border;
+    }
+}
+
+
+/*! border-radius */
+
+.border-radius50 {
+    border-radius: 50%;
+}
+
+.border-radius100 {
+    border-radius: 100%;
+}
+
+$i: 20;
+@while $i>-1 {
+    .border-radius#{$i} {
+        border-radius: ($i * $multiplier)#{$unit};
+    }
+    $i: $i - 1;
+}
+
+
+/*! float */
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+
+/*! width */
+
+.width25 {
+    width: 25%;
+}
+
+.width33 {
+    width: 33.3%;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.width100 {
+    width: 100%;
+}
+
+
+/*! height */
+
+.height100 {
+    height: 100%;
+}
+
+
+/*! line-height */
+
+$i: 100;
+@while $i>0 {
+    .line-height#{$i} {
+        line-height: ($i * $multiplier)#{$unit};
+    }
+    $i: $i - $step;
+}
+
+
+/*! display */
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.display-none {
+    display: none;
+}
+
+
+/*! position */
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.translateX {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.translateY {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.translateXY {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+$i: 100;
+@while $i>-100 {
+    @each $dir in $dirlist {
+        .#{$dir}#{$i} {
+            #{$dir}: ($i * $multiplier)#{$unit};
+        }
+    }
+    $i: $i - $step;
+}
+
+$i: 100;
+@while $i>-1 {
+    .separator#{$i} {
+        height: ($i * $multiplier)#{$unit};
+        background: #f6f6f6
+    }
+    $i: $i - $step;
+}
+
+
+/*! text-align */
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+
+/*! rotate */
+
+.rotate90 {
+    transform: rotate(90deg);
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+}
+
+
+/*! flex */
+
+.flex {
+    display: flex;
+}
+
+.flex-justify {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-align {
+    display: flex;
+    align-items: center;
+}
+
+.flex-align-justify {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-align-start {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.flex-align-end {
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+}
+
+.flex-baseline {
+    display: flex;
+    align-items: baseline;
+}
+
+.flex-spacearound {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-spacebetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-align-self-start {
+    align-self: flex-start
+}
+
+.flex-align-spacearound {
+    @extend .flex-align;
+    @extend .flex-spacearound;
+}
+
+.flex-align-spacebetween {
+    @extend .flex-align;
+    @extend .flex-spacebetween;
+}
+
+.flex-baseline-spacearound {
+    @extend .flex-baseline;
+    @extend .flex-spacearound;
+}
+
+.flex-baseline-spacebetween {
+    @extend .flex-baseline;
+    @extend .flex-spacebetween;
+}
+
+.flex-nowrap {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-column-spacebetween {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.flex-column-spacearound {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.itemflex-00auto {
+    flex: 0 0 auto;
+}
+
+.itemflex-11auto {
+    flex: 1 1 auto;
+}
+
+
+/*! cursor */
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-default {
+    cursor: default;
+}
+
+
+/*! justify */
+
+.justify {
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.justify:after {
+    display: inline-block;
+    content: '';
+    width: 100%;
+}
+
+
+/*! opacity */
+
+$i: 10;
+@while $i>=0 {
+    .opacity_#{$i} {
+        opacity: 0.1 * $i;
+    }
+    $i: $i - 1;
+}
+
+
+/*! word-break */
+
+.break-all {
+    word-break: break-all;
+}
+
+.break-word {
+    word-break: break-word;
+}
+
+
+/* white-space */
+
+.pre-wrap {
+    white-space: pre-wrap;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+
+/*! scroll */
+
+.scroll-x {
+    overflow-x: scroll;
+}
+
+.scroll-y {
+    overflow-y: scroll;
+}
+
+.scroll-auto {
+    overflow: auto;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+// line
+.line-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@for $i from 2 through 10 {
+    .line-limited#{$i} {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $i;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+
+/*! other */
+
+.bold {
+    font-weight: bold;
+}
+
+.clear {
+    overflow: hidden;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.inline-middle {
+    display: inline;
+    vertical-align: middle;
+}
+
+
+/*! mixin */
+
+@mixin mixin-box-border($width, $height, $border) {
+    width: $width;
+    height: $height;
+    border: $border;
+}
+
+@mixin mixin-box-padding($minwidth, $minheight, $paddingtb, $paddinglf) {
+    min-width: $minwidth;
+    min-height: $minheight;
+    padding: $paddingtb $paddinglf;
+}
+
+// 关于公共类 写大小的地方
+.padding-bottom160 {
+    padding-bottom: (160 * $multiplier)#{$unit};
+}
+
+.translateYKeyBord {
+    transform: translateY(-274px)
+}
+
+.icon_nosearch {
+    width: (80 * $multiplier)#{$unit};
+}
