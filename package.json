@@ -13,6 +13,7 @@
         "build.product": "cross-env MODE=product node build/build.js"
     },
     "dependencies": {
+        "async-validator": "^3.3.0",
         "axios": "^0.18.0",
         "babel-polyfill": "^6.26.0",
         "better-scroll": "^1.13.2",

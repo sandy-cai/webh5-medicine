@@ -37,7 +37,6 @@ export const widget = {
     },
     alert: (content, title, buttonName) => {
         return Dialog.alert({
-            title: title ? title : '提示',
             message: content,
             confirmButtonText: buttonName ? buttonName : '确定'
         })

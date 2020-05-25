@@ -5,7 +5,7 @@ if (target == 'product') {
     obj = {
         NODE_ENV: '"production"',
         URL: JSON.stringify({
-            mobile: 'https://wxyilian.zwjk.com/'
+            mobile: 'http://111.231.218.245:8033/'
         }),
     }
 } else if (target == 'pre') {
@@ -19,7 +19,7 @@ if (target == 'product') {
     obj = {
         NODE_ENV: '"production"',
         URL: JSON.stringify({
-            mobile: 'http://testjgjkz.zwjk.com/'
+            mobile: 'http://111.231.218.245:8033/'
         }),
     }
 }

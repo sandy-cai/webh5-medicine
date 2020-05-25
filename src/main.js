@@ -13,6 +13,9 @@ import { logger, date, cache, cacheKey, validate, widget, post, get, apis, util 
 import '@/assets/iconfont/iconfont.css'
 import '@/assets/sass/sass_index.scss';
 import { init } from "@/utils/common";
+import { Icon } from 'vant';
+
+Vue.use(Icon);
 
 import { VueWechatTitle } from './directive'
 

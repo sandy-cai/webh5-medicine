@@ -9,10 +9,7 @@ import { Base64 } from 'js-base64'
  */
 export const cacheKey = {
     openId: 'open_id',
-    hospitalId: 'hospital_id',
-    isScanCode: 'is_scan_code',
     userInfo: 'user_info',
-    applyInfo: 'apply_info'
 }
 
 export const cache = {
