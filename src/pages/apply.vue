@@ -34,7 +34,7 @@
       </van-list>
     </div>
     <div class="width100 text-align-center bottom">
-      <van-button @click="add()">
+      <van-button @click="addMedicine()">
         <span>新增药品</span>
       </van-button>
     </div>
@@ -89,14 +89,22 @@
         />
         <van-field
           class="redstar"
-          v-model="medical.evaluate"
           label="一致性"
-          placeholder="请选择一致性"
+          input-align="right"
           :error-message="errorMsg.evaluate"
-          @blur="myKeyup"
-          @clear="myKeyup"
-          clearable
-        />
+        >
+          <template #input>
+            <van-radio-group
+              v-model="medical.evaluate"
+              @change="myKeyup"
+              class="flex"
+              style="margin-right: 45%;"
+            >
+              <van-radio name="1" style="margin-right: 12px;">是</van-radio>
+              <van-radio name="0">否</van-radio>
+            </van-radio-group>
+          </template>
+        </van-field>
         <van-field
           class="redstar"
           v-model="medical.distribution"
@@ -113,18 +121,17 @@
 </template>
 
 <script>
-import { XTable, LoadMore } from "vux";
+import { XTable } from "vux";
 import validator from "@/utils/validator";
 
 export default {
   components: {
-    XTable,
-    LoadMore
+    XTable
   },
   data() {
     return {
       searchValue: "",
-      showEdit: "",
+      showEdit: false,
       page: 1,
       pageSize: 10,
       list: [],
@@ -164,51 +171,43 @@ export default {
       this.token = this.$store.state.userInfo.Token;
     }
     if (!this.token) {
-      // this.$router.push("/login");
+      this.$router.push("/login");
     }
     this.$nextTick(() => {
       document.getElementsByClassName("content")[0].style.height =
-        document.body.clientHeight - 60 - 44 + "px";
+        document.body.clientHeight - 126 + "px";
+      document.getElementsByClassName("content")[0].style.maxHeight =
+        document.body.clientHeight - 126 + "px";
     });
   },
   mounted() {
-    this.onRefresh();
+    this.getPublicSet().then(res => {
+      this.onRefresh();
+    });
   },
   methods: {
-    beforeClose(action, done) {
-      if (action === "cancel") {
-        done();
-      } else if (action === "confirm") {
-        //数据校验
-        const isReturn = false;
-        this.validate((value, fields) => {
-          this.isReturn = value;
-        });
-        if (this.isReturn) {
-          return;
-        }
-        this.$post({
-          isLoading: true,
-          url: this.$apis.save,
-          header: {
-            token: this.token
-          },
-          param: this.medical
-        })
-          .then(res => {
-            if (res.suc) {
-              done();
-            }
-          })
-          .catch(res => {
-            this.$widget.toast(res.mes);
-            done(false);
-          });
-      }
-    },
-    myKeyup() {},
     //关键字搜索
     onSearch(val) {},
+    myKeyup() {
+      if (this.medical.name) {
+        this.errorMsg.name = "";
+      }
+      if (this.medical.medicalType) {
+        this.errorMsg.medicalType = "";
+      }
+      if (this.medical.specs) {
+        this.errorMsg.specs = "";
+      }
+      if (this.medical.manufactor) {
+        this.errorMsg.manufactor = "";
+      }
+      if (this.medical.evaluate) {
+        this.errorMsg.evaluate = "";
+      }
+      if (this.medical.distribution) {
+        this.errorMsg.distribution = "";
+      }
+    },
     onRefresh() {
       this.page = 1;
       this.finished = true;
@@ -219,6 +218,7 @@ export default {
       this.page++;
       this.getData({ loadmore: true });
     },
+    //获取列表
     getData(e) {
       this.$get({
         isLoading: true,
@@ -249,8 +249,82 @@ export default {
         }
       });
     },
-    add() {
+    //新增药品
+    addMedicine() {
+      this.clearForm();
       this.showEdit = true;
+    },
+    //Dialog异步关闭
+    beforeClose(action, done) {
+      if (action === "cancel") {
+        done();
+      } else if (action === "confirm") {
+        //数据校验
+        const isReturn = false;
+        this.validate((value, fields) => {
+          this.isReturn = value;
+        });
+        if (this.isReturn) {
+          done(false);
+          return;
+        }
+        //在开放时间段内才能提交
+        this.getPublicSet()
+          .then(res => {
+            this.$post({
+              isLoading: true,
+              url: this.$apis.save,
+              header: {
+                token: this.token
+              },
+              param: this.medical
+            })
+              .then(res => {
+                if (res.suc) {
+                  this.$widget.toast("操作成功");
+                  done();
+                  this.onRefresh();
+                }
+              })
+              .catch(res => {
+                this.$widget.toast(res.mes);
+                done(false);
+              });
+          })
+          .catch(res => {
+            done(false);
+          });
+      }
+    },
+    //获取开放时间段
+    getPublicSet() {
+      return new Promise((resolve, reject) => {
+        this.$post({
+          isLoading: true,
+          url: this.$apis.getPublicSet
+        })
+          .then(res => {
+            resolve(res);
+          })
+          .catch(res => {
+            reject();
+          });
+      });
+    },
+    //清空
+    clearForm() {
+      this.medical.name = "";
+      this.medical.medicalType = "";
+      this.medical.specs = "";
+      this.medical.manufactor = "";
+      this.medical.evaluate = "";
+      this.medical.distribution = "";
+      this.errorMsg.name = "";
+      this.errorMsg.medicalType = "";
+      this.errorMsg.specs = "";
+      this.errorMsg.manufactor = "";
+      this.errorMsg.evaluate = "";
+      this.errorMsg.distribution = "";
     },
     //验证方法
     validate(callback, data) {

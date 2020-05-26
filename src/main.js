@@ -25,6 +25,7 @@ import { Dialog } from 'vant';
 // 全局注册
 Vue.use(Dialog);
 
+
 import { VueWechatTitle } from './directive'
 
 Vue.use(VueWechatTitle)

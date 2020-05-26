@@ -5,7 +5,6 @@
       <van-field :left-icon="iconPeople" v-model="userName" placeholder="手机号" clearable></van-field>
       <van-field :left-icon="iconLock" v-model="userPwd" placeholder="密码" clearable />
     </van-cell-group>
-    <span class="block text-align-right forget-password">忘记密码？</span>
     <div class="text-align-center">
       <van-button round type="info" style="width: 85%;" @click="login">登录</van-button>
     </div>
