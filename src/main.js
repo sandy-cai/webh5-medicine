@@ -14,8 +14,16 @@ import '@/assets/iconfont/iconfont.css'
 import '@/assets/sass/sass_index.scss';
 import { init } from "@/utils/common";
 import { Icon } from 'vant';
-
 Vue.use(Icon);
+import { List } from 'vant';
+Vue.use(List);
+import { PullRefresh } from 'vant';
+Vue.use(PullRefresh);
+import { Search } from 'vant';
+Vue.use(Search);
+import { Dialog } from 'vant';
+// 全局注册
+Vue.use(Dialog);
 
 import { VueWechatTitle } from './directive'
 

@@ -34,15 +34,17 @@ const postBase = {
     responseType: 'json' // default
 }
 
-const postBaseResponseText = {...postBase, responseType: 'text' }
+const postBaseResponseText = { ...postBase, responseType: 'text' }
 
-const postBaseFormtype = {...postBase,
+const postBaseFormtype = {
+    ...postBase,
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset-utf-8'
     }
 }
 
-const postFile = {...postBase,
+const postFile = {
+    ...postBase,
     timeout: 1800000,
     // 请求头信息
     headers: {
@@ -51,7 +53,8 @@ const postFile = {...postBase,
     }
 }
 
-const postResArraybuffer = {...postBase,
+const postResArraybuffer = {
+    ...postBase,
     // 请求头信息
     headers: {
         'Content-Type': 'application/json;charset=UTF-8'
@@ -165,6 +168,9 @@ export const post = (option, v) => {
                             reject(response.data)
                         }
                     }
+                } else if (response.status === 401) {
+                    //401 表示 token失效
+                    this.$router.push("/login");
                 } else {
                     if (isLoading) {
                         widget.toast('系统繁忙，请稍后重试')
